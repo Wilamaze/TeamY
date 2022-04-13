@@ -1,2 +1,2 @@
 # TeamY
-This is Team Y's group project for the project. 
+This is Team Y's project for the final group project in INST326
