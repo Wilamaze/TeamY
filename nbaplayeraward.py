@@ -1,4 +1,6 @@
 from argparse import ArgumentParser
+from posixpath import split
+from this import d
 
 class Database:
     """The Database class will evaluate the top 75 players from the 75th
@@ -27,10 +29,13 @@ class Database:
         Side effects:
             Sets attribute, nbaplayers, to an empty list.
         """
-        self.nbaplayers = []
-        pass
+        self.nbaplayers = {}
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                split_test = line.strip().split("\t")
+                self.nbaplayers[split_test[0]] = int(split_test[1]),int(split_test[2]),int(split_test[3]),int(split_test[4]),int(split_test[5])
     
-    def playerstats(self, player, mvp, champion, fmvp, scoring_title):
+    def playerstats(self, name, mvp, dpoy, championship, fmvp, scoring_title):
         """The playerstats method is the method that will get the information
         of each of the NBA players within the 75th Anniversary Team being able
         to be used in order to work with other methods such as comparing a
@@ -46,6 +51,12 @@ class Database:
             scoring_title (int): The number of scoring titles an NBA player 
             has received.
         """
+        if name not in self.nbaplayers:
+            raise KeyError("NBA Player not on the Top 75 Team.")
+        else:
+            for item in self.nbaplayers:
+                item["name"] = mvp, dpoy, championship, fmvp, scoring_title
+                return item
         
     def statsonly(self, mvp, champion, fmvp, scoring_title):
         """The statsonly method will look at specifcally all the stats seeing the most
