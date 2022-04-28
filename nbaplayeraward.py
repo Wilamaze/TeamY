@@ -1,6 +1,4 @@
 from argparse import ArgumentParser
-from posixpath import split
-from this import d
 
 class Database:
     """The Database class will evaluate the top 75 players from the 75th
@@ -32,32 +30,25 @@ class Database:
         self.nbaplayers = {}
         with open(path, "r", encoding="utf-8") as f:
             for line in f:
-                split_test = line.strip().split("\t")
-                self.nbaplayers[split_test[0]] = int(split_test[1]),int(split_test[2]),int(split_test[3]),int(split_test[4]),int(split_test[5])
+                line = line.strip().split("\t")
+                self.nbaplayers[line[0]] = line[1:]
+                
+                #split_test = line.strip().split("\t")
+                #self.nbaplayers[split_test[0]] = int(split_test[1]),int(split_test[2]),int(split_test[3]),int(split_test[4]),int(split_test[5])
     
-    def playerstats(self, name, mvp, dpoy, championship, fmvp, scoring_title):
-        """The playerstats method is the method that will get the information
-        of each of the NBA players within the 75th Anniversary Team being able
-        to be used in order to work with other methods such as comparing a
-        player to another player.
+    def playerstats(self, name):
+        """
 
         Args:
-            player (str): The name of the NBA Player we are getting stats from.
-            mvp (int): The number of MVP awards an NBA player has received
-            champion (int): The number of championships an NBA player 
-            has received.
-            fmvp (int): The number of Finals MVP awards an NBA 
-            player has received.
-            scoring_title (int): The number of scoring titles an NBA player 
-            has received.
+           
         """
-        if name not in self.nbaplayers:
+        if name.upper() not in self.nbaplayers:
             raise KeyError("NBA Player not on the Top 75 Team.")
         else:
-            for item in self.nbaplayers:
-                item["name"] = mvp, dpoy, championship, fmvp, scoring_title
-                return item
-        
+            name = name.upper()
+            print(f"{name} and his accolades: MVP: {self.nbaplayers[name][0]}, DPOY: {self.nbaplayers[name][1]}, Champion: {self.nbaplayers[name][2]}, FMVP: {self.nbaplayers[name][3]}, Scoring Title: {self.nbaplayers[name][4]}")
+            
+                    
     def statsonly(self, mvp, champion, fmvp, scoring_title):
         """The statsonly method will look at specifcally all the stats seeing the most
         of a specific stat that the user would like to see. This method allows for the
@@ -114,6 +105,7 @@ def parse_args(arglist):
     Args:
     
     """
-    
+  
+a = Database("nbaplayerawards.txt")  
 if __name__ == "__main__":
-    pass
+    a.playerstats("stephen curry")
