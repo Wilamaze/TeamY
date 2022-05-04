@@ -25,87 +25,99 @@ class Database:
             an NBA players stats.
             
         Side effects:
-            Sets attribute, nbaplayers, to an empty list.
+            Sets attribute, nbaplayers, to an empty list
         """
         self.nbaplayers = {}
         with open(path, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.strip().split("\t")
                 self.nbaplayers[line[0]] = line[1:]
-                
-                #split_test = line.strip().split("\t")
-                #self.nbaplayers[split_test[0]] = int(split_test[1]),int(split_test[2]),int(split_test[3]),int(split_test[4]),int(split_test[5])
     
     def playerstats(self, name):
-        """
-
+        """The playerstats give the user the different number of accolades
+        that the NBA player has won in their career. 
+        
         Args:
+            name (str): The name of the NBA player.
+        
+        Side effects:
+            Prints the name of the NBA player and the 5 accolades 
+            that belong to that specific player.
            
         """
         if name.upper() not in self.nbaplayers:
             raise KeyError("NBA Player not on the Top 75 Team.")
         else:
             name = name.upper()
-            print(f"{name} and his accolades: MVP: {self.nbaplayers[name][0]}, DPOY: {self.nbaplayers[name][1]}, Champion: {self.nbaplayers[name][2]}, FMVP: {self.nbaplayers[name][3]}, Scoring Title: {self.nbaplayers[name][4]}")
-            
-                    
-    def statsonly(self, mvp, champion, fmvp, scoring_title):
-        """The statsonly method will look at specifcally all the stats seeing the most
-        of a specific stat that the user would like to see. This method allows for the
-        user to answer the question of the 75 players on this anniversary team, what
-        is the most common award of all these players.
+            #Everytime I use \ to shorten this line it will output white space
+            print(f"{name.title()} and his accolades: MVP:{self.nbaplayers[name][0]}, DPOY: {self.nbaplayers[name][1]}, Champion: {self.nbaplayers[name][2]}, FMVP: {self.nbaplayers[name][3]}, Scoring Title: {self.nbaplayers[name][4]}")
+        
+    def compare(self, name1, name2):
+        """The compare method is a method that will be used in order for the user
+        of our program to compare two players and their different statistics being
+        able to determine who is better between the two NBA players.
 
         Args:
-            mvp (int): The number of MVP awards an NBA player has received
-            champion (int): The number of championships an NBA player 
-            has received.
-            fmvp (int): The number of Finals MVP awards an NBA 
-            player has received.
-            scoring_title (int): The number of scoring titles an NBA player 
-            has received.
+            name1 (str): The name of the first NBA player the user wants to
+            use to compare to the second player.
+            name2 (str): The name of the second NBA player the user wants to use
+            to compare to the first player.
+            
+        Side effects:
+            Prints a string showing which player has more accolades than
+            the other.
         """
-        
-def compare(player1, player2, stats):
-    """The compare method is a method that will be used in order for the user
-    of our program to compare two players and their different statistics being
-    able to determine who is the Greatest of All Time according to the NBA
-    75th Anniversary team. 
-
-    Args:
-        player1 (str): The name of the first player the user wants to use 
-        to compare to player 2. 
-        player2 (str): The name of the second player the user wants to use
-        to compare to player 1.
-        stats (bool): If one player has more stats (awards) than the other
-        player it will return the result (better player) of the two individuals.
-        
-    Returns:
-        str: It will return a string stating who the better player is between
-        player 1 and player 2. 
-    """
+        if name1.upper() not in self.nbaplayers or name2.upper() \
+            not in self.nbaplayers:
+            raise KeyError("Sorry, one or both NBA Players are not on the 75th Anniversary Team.")
+        else:
+            name1 = name1.upper()
+            name2 = name2.upper()
+            mvp1 = int(self.nbaplayers[name1][0])
+            dpoy1 = int(self.nbaplayers[name1][1])
+            chip1 = int(self.nbaplayers[name1][2])
+            fmvp1 = int(self.nbaplayers[name1][3])
+            st1 = int(self.nbaplayers[name1][4])
+            mvp2 = int(self.nbaplayers[name2][0])
+            dpoy2 = int(self.nbaplayers[name2][1])
+            chip2 = int(self.nbaplayers[name2][2])
+            fmvp2 = int(self.nbaplayers[name2][3])
+            st2 = int(self.nbaplayers[name2][4])
+            name1_accolades = int(mvp1)+int(dpoy1)+int(chip1)+int(fmvp1)+int(st1)
+            name2_accolades = int(mvp2)+int(dpoy2)+int(chip2)+int(fmvp2)+int(st2)
+            
+            if name1_accolades > name2_accolades:
+            #Everytime I use \ to shorten this line it will output white space
+                print(f"{name1.title()} has {name1_accolades} total accolades and {name2.title()} has {name2_accolades} total accolades, so {name1.title()} is the better player.")
+            elif name2_accolades > name1_accolades:
+            #Everytime I use \ to shorten this line it will output white space
+                print(f"{name2.title()} has {name2_accolades} total accolades and {name1.title()} has {name1_accolades} total accolades, so {name2.title()} is the better player.")
+            elif name1_accolades == name2_accolades:
+            #Everytime I use \ to shorten this line it will output white space
+                print(f"{name1.title()} has {name1_accolades} total accolades and {name2.title()} has {name2_accolades} total accolades, so both players are equal!")
+           
+def main():
+    """The main function will go through the entire program asking questions
+    to the user about what and what they do and don't want to run.
     
-def main(file, name, mvp, champion, fmvp, scoring_title, name2):
-    """Displays the stats of an NBA player or comparing two NBA players,
-    using the information from the file.
-
-    Args:
-        file (str): The path to the file used for this program.
-        name (str): The name of the NBA player.
-        mvp (int): The number of MVPs of that NBA player.
-        champion (int): The number of championships of that NBA player.
-        fmvp (int): The number of Finals MVPs of that NBA player.
-        scoring_title (int): The number of scoring titles of that NBA
-        player.
-        name2 (str): The name of the second NBA player to compare. 
+    Side effects:
+        Prints and runs the code
     """
+    #Instantiating the Class
+    db = Database("nbaplayerawards.txt")
+    #Welcoming the user to our program.
+    print("Hello! Welcome to the NBA 75th Anniversary Database!")
+    #The different methods.
+    playerstats_method = db.playerstats(name=input("Let's get you started! What NBA Player would you like to know the accolades of? "))
+    question1 = input("Would you like to compare NBA Players? ")
     
-def parse_args(arglist):
-    """Parse command-line arguments.
-
-    Args:
+    if question1 == "no":
+        pass
+    else:
+        compare_method = db.compare(name1=input("NBA Player 1? "),name2=input("NBA Player 2? "))
+        return compare_method
     
-    """
-  
-a = Database("nbaplayerawards.txt")  
+    return playerstats_method
+    
 if __name__ == "__main__":
-    a.playerstats("stephen curry")
+    main()
