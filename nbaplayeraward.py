@@ -86,15 +86,17 @@ class Database:
             name1_accolades = int(mvp1)+int(dpoy1)+int(chip1)+int(fmvp1)+int(st1)
             name2_accolades = int(mvp2)+int(dpoy2)+int(chip2)+int(fmvp2)+int(st2)
             
-            if name1_accolades > name2_accolades:
-            #Everytime I use \ to shorten this line it will output white space
-                print(f"{name1.title()} has {name1_accolades} total accolades and {name2.title()} has {name2_accolades} total accolades, so {name1.title()} is the better player.")
-            elif name2_accolades > name1_accolades:
-            #Everytime I use \ to shorten this line it will output white space
-                print(f"{name2.title()} has {name2_accolades} total accolades and {name1.title()} has {name1_accolades} total accolades, so {name2.title()} is the better player.")
-            elif name1_accolades == name2_accolades:
-            #Everytime I use \ to shorten this line it will output white space
-                print(f"{name1.title()} has {name1_accolades} total accolades and {name2.title()} has {name2_accolades} total accolades, so both players are equal!")
+            #Conditional Expression
+            #Shorten line (white space issue when printing.)
+            print(f"{name1.title()} has {name1_accolades} total accolades and {name2.title()} has {name2_accolades} total accolades, so {name1.title()} is the better player.") \
+                if name1_accolades > name2_accolades else \
+                    print(f"{name2.title()} has {name2_accolades} total accolades and {name1.title()} has {name1_accolades} total accolades, so {name2.title()} is the better player.") \
+                        if name2_accolades > name1_accolades else \
+                            print(f"{name1.title()} has {name1_accolades} total accolades and {name2.title()} has {name2_accolades} total accolades, so both players are equal!")  
+
+
+
+            
            
 def main():
     """The main function will go through the entire program asking questions
