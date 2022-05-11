@@ -33,7 +33,7 @@ class Database:
                 line = line.strip().split("\t")
                 self.nbaplayers[line[0]] = line[1:]
     
-    def playerstats(self, name):
+    def playerstats(self, name): #Orlando Aguilar (f-strings)
         """The playerstats give the user the different number of accolades
         that the NBA player has won in their career. 
         
@@ -49,10 +49,14 @@ class Database:
             raise KeyError("NBA Player not on the Top 75 Team.")
         else:
             name = name.upper()
-            #Everytime I use \ to shorten this line it will output white space
-            print(f"{name.title()} and his accolades: MVP:{self.nbaplayers[name][0]}, DPOY: {self.nbaplayers[name][1]}, Champion: {self.nbaplayers[name][2]}, FMVP: {self.nbaplayers[name][3]}, Scoring Title: {self.nbaplayers[name][4]}")
+            print(f"{name.title()} "
+                f"and his accolades: MVP: {self.nbaplayers[name][0]}"
+                    f", DPOY: {self.nbaplayers[name][1]}"
+                        f", Champion: {self.nbaplayers[name][2]}"
+                            f", FMVP: {self.nbaplayers[name][3]}"
+                                f", Scoring Title: {self.nbaplayers[name][4]}")
         
-    def compare(self, name1, name2):
+    def compare(self, name1, name2): #Orlando Aguilar (Conditional Expressions)
         """The compare method is a method that will be used in order for the user
         of our program to compare two players and their different statistics being
         able to determine who is better between the two NBA players.
@@ -69,7 +73,8 @@ class Database:
         """
         if name1.upper() not in self.nbaplayers or name2.upper() \
             not in self.nbaplayers:
-            raise KeyError("Sorry, one or both NBA Players are not on the 75th Anniversary Team.")
+            raise KeyError("Sorry, one or both NBA Players are not on " \
+                "the 75th Anniversary Team.")
         else:
             name1 = name1.upper()
             name2 = name2.upper()
@@ -83,20 +88,26 @@ class Database:
             chip2 = int(self.nbaplayers[name2][2])
             fmvp2 = int(self.nbaplayers[name2][3])
             st2 = int(self.nbaplayers[name2][4])
-            name1_accolades = int(mvp1)+int(dpoy1)+int(chip1)+int(fmvp1)+int(st1)
-            name2_accolades = int(mvp2)+int(dpoy2)+int(chip2)+int(fmvp2)+int(st2)
+            name1_accolades = \
+                int(mvp1)+int(dpoy1)+int(chip1)+int(fmvp1)+int(st1)
+            name2_accolades = \
+                int(mvp2)+int(dpoy2)+int(chip2)+int(fmvp2)+int(st2)
             
-            #Conditional Expression
-            #Shorten line (white space issue when printing.)
-            print(f"{name1.title()} has {name1_accolades} total accolades and {name2.title()} has {name2_accolades} total accolades, so {name1.title()} is the better player.") \
-                if name1_accolades > name2_accolades else \
-                    print(f"{name2.title()} has {name2_accolades} total accolades and {name1.title()} has {name1_accolades} total accolades, so {name2.title()} is the better player.") \
+            #Many f-strings here due to using "\" in one f-string will cause
+            #much white space within the f-string statements.
+        print(f"{name1.title()} has {name1_accolades} total accolades and "
+            f"{name2.title()} has {name2_accolades} total accolades, so"
+            f"{name1.title()} is the better player.") \
+            if name1_accolades > name2_accolades else \
+                print(f"{name2.title()} has {name2_accolades} total "
+                    f"accolades and {name1.title()} has {name1_accolades}"
+                    f" total accolades, so {name2.title()} "
+                    f"is the better player.") \
                         if name2_accolades > name1_accolades else \
-                            print(f"{name1.title()} has {name1_accolades} total accolades and {name2.title()} has {name2_accolades} total accolades, so both players are equal!")  
-
-
-
-            
+                            print(f"{name1.title()} has {name1_accolades} total"
+                                  f" accolades and {name2.title()} has "
+                                  f"{name2_accolades} total accolades,"
+                                  f" so both players are equal!")  
            
 def main():
     """The main function will go through the entire program asking questions
@@ -110,7 +121,8 @@ def main():
     #Welcoming the user to our program.
     print("Hello! Welcome to the NBA 75th Anniversary Database!")
     #The different methods.
-    playerstats_method = db.playerstats(name=input("Let's get you started! What NBA Player would you like to know the accolades of? "))
+    playerstats_method = db.playerstats(name=input("Let's get you started! " \
+        "What NBA Player would you like to know the accolades of? "))
     question1 = input("Would you like to compare NBA Players? ")
     
     if question1 == "no":
