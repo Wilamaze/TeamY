@@ -33,7 +33,8 @@ class Database:
                 line = line.strip().split("\t")
                 self.nbaplayers[line[0]] = line[1:]
     
-    def playerstats(self, name): #Orlando Aguilar (f-strings)
+    def playerstats(self, name): #Orlando Aguilar (Optional parameters/use 
+        #of keyword arguments)
         """The playerstats give the user the different number of accolades
         that the NBA player has won in their career. 
         
@@ -93,6 +94,7 @@ class Database:
             name2_accolades = \
                 int(mvp2)+int(dpoy2)+int(chip2)+int(fmvp2)+int(st2)
             
+            #Conditional Expressions
             #Many f-strings here due to using "\" in one f-string will cause
             #much white space within the f-string statements.
         print(f"{name1.title()} has {name1_accolades} total accolades and "
