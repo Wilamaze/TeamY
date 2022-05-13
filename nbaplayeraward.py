@@ -1,4 +1,4 @@
-from argparse import ArgumentParser
+import pandas as pd
 
 class Database:
     """The Database class will evaluate the top 75 players from the 75th
@@ -110,7 +110,25 @@ class Database:
                                   f" accolades and {name2.title()} has "
                                   f"{name2_accolades} total accolades,"
                                   f" so both players are equal!")  
-           
+    def panda_method(self, path):
+        """summary
+
+        Args:
+            path (type): description
+        """
+        df = pd.read_csv(path) 
+        by_mvp = df[["Name","MVP"]].sort_values(by="MVP",ascending=False)
+        print(by_mvp)
+    def graph_method(self, path):
+        """summary
+
+        Args:
+            path (type): description
+        """
+        df = pd.read_csv(path)
+        dfg = df.groupby("MVP")["Name"].count()
+        plotter = dfg.plot.bar(x="MVP",y="Name")
+        print(plotter)          
 def main():
     """The main function will go through the entire program asking questions
     to the user about what and what they do and don't want to run.
@@ -123,17 +141,36 @@ def main():
     #Welcoming the user to our program.
     print("Hello! Welcome to the NBA 75th Anniversary Database!")
     #The different methods.
-    playerstats_method = db.playerstats(name=input("Let's get you started! " \
+    try:
+        playerstats_method = db.playerstats(name=input("Let's get you started! " \
+        "What NBA Player would you like to know the accolades of? "))
+    except:
+        playerstats_method = db.playerstats(name=input("Player not found! " \
         "What NBA Player would you like to know the accolades of? "))
     question1 = input("Would you like to compare NBA Players? ")
-    
     if question1 == "no":
         pass
     else:
         compare_method = db.compare(name1=input("NBA Player 1? "),name2=input("NBA Player 2? "))
-        return compare_method
+        print(compare_method)
+    question2 = input("Would you like to see a list of the amount of mvps each player has earned? ")
+    if question2 == "no":
+        pass
+    else: 
+        panda_method = db.panda_method("nba_top_75.csv")
+        print(panda_method)
+    question3 = input("Do you want to see a graph of the most MVPs based on the database? ")
+    if question3 == "no":
+        pass
+    else: 
+        graph_method = db.graph_method("nba_top_75.csv")
+        print(graph_method)
     
     return playerstats_method
     
 if __name__ == "__main__":
     main()
+    
+   # df = pd.read_csv("nba_top_75.csv")
+    #print(df.query("MVP > 2"))
+    #print(df.query("Name == \"LEBRON JAMES\""))
