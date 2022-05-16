@@ -3,25 +3,6 @@ import matplotlib.pyplot as plt
 import re
 import csv
 
-
-text = 'C:/Users/Emerson/Downloads/nbaplayerawards.csv'
-read_file = pd.read_csv (r'C:\Users\Emerson\Downloads\nbaplayerawards.csv')
-
-
-def has_accolades(text):
-    patterns = '[1-9]'
-    with open(text, 'rb') as csvfile:
-        reader = csv.reader(open(text, 'rU'))
-        for i in reader:
-            string1=""
-            for chr in i:
-                string1=string1+chr
-            if re.search(patterns, string1):
-                print("accolade found!")
-
-            else:
-                print("no accolade")
-
 class Database:
     """The Database class will evaluate the top 75 players from the 75th
     Anniversary team. Using the information from the top 75 players the
@@ -160,6 +141,19 @@ class Database:
         dfg = df.groupby("MVP")["Name"].count()
         dfg.plot.bar(x="MVP",y="Name")
         plt.show()
+        
+    def has_accolades(self, path): #Emerson
+        patterns = '[1-9]'
+        with open(path, 'rb') as csvfile:
+            reader = csv.reader(open(path, 'r'))
+            for i in reader:
+                string1=""
+                for chr in i:
+                    string1=string1+chr
+                if re.search(patterns, string1):
+                    print("has accolade")
+                else:
+                    print("no accolade")
                  
 def main():
     """The main function will go through the entire program asking questions
@@ -197,12 +191,15 @@ def main():
     else: 
         graph_method = db.graph_method("nba_top_75.csv")
         print(graph_method)
+    question4 = input("Would you like to see how many people within the list have 0 awards? ")
+    if question4 == "no":
+        pass
+    else:
+        has_accolade_method = db.has_accolades("nba_top_75.csv")
+        print(has_accolade_method)
     
     return playerstats_method
     
 if __name__ == "__main__":
     main()
     
-   # df = pd.read_csv("nba_top_75.csv")
-    #print(df.query("MVP > 2"))
-    #print(df.query("Name == \"LEBRON JAMES\""))
