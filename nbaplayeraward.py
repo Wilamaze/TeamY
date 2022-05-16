@@ -1,5 +1,26 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import re
+import csv
+
+
+text = 'C:/Users/Emerson/Downloads/nbaplayerawards.csv'
+read_file = pd.read_csv (r'C:\Users\Emerson\Downloads\nbaplayerawards.csv')
+
+
+def has_accolades(text):
+    patterns = '[1-9]'
+    with open(text, 'rb') as csvfile:
+        reader = csv.reader(open(text, 'rU'))
+        for i in reader:
+            string1=""
+            for chr in i:
+                string1=string1+chr
+            if re.search(patterns, string1):
+                print("accolade found!")
+
+            else:
+                print("no accolade")
 
 class Database:
     """The Database class will evaluate the top 75 players from the 75th
