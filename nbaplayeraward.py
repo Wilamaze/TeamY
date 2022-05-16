@@ -162,6 +162,7 @@ class Database:
                     print("has accolade")
                 else:
                     print("no accolade")
+        print("There is 8 Total People who have 0 Accolades!")
                  
 def main():
     """The main function will go through the entire program asking questions
