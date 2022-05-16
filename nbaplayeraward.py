@@ -4,14 +4,12 @@ import re
 import csv
 
 
-text = 'C:/Users/Emerson/Downloads/nbaplayerawards.csv'
-read_file = pd.read_csv (r'C:\Users\Emerson\Downloads\nbaplayerawards.csv')
-
+text = 'nbaplayerawards.csv'
 
 def has_accolades(text):
     patterns = '[1-9]'
     with open(text, 'rb') as csvfile:
-        reader = csv.reader(open(text, 'rU'))
+        reader = csv.reader(open(text, 'r'))
         for i in reader:
             string1=""
             for chr in i:
