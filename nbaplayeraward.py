@@ -1,4 +1,3 @@
-from jinja2 import pass_environment
 import pandas as pd
 import matplotlib.pyplot as plt
 import re
@@ -163,6 +162,10 @@ class Database:
                 else:
                     print("no accolade")
         print("There is 8 Total People who have 0 Accolades!")
+        
+    def team_y_favorite(self, path): #Mohamed Barrie
+        with open(path, "r", encoding="utf-8") as f:
+            exec(f.read())
                  
 def main():
     """The main function will go through the entire program asking questions
@@ -220,9 +223,17 @@ def main():
     else:
         has_accolade_method = db.has_accolades("nba_top_75.csv")
         print(has_accolade_method)
+        
+    question5 = input("Would you like to see Team Y's favorite players from" +
+                      " the 75th Anniversary List? alongside their point" +
+                      " averages and total seasons played in the NBA? ")
+    if question5 == "no":
+        pass
+    else:
+        favorite_method = db.team_y_favorite("team_Y_favorite_players.py")
+        print(favorite_method)
     
     return playerstats_method
     
 if __name__ == "__main__":
     main()
-    
