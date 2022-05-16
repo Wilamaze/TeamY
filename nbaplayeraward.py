@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 class Database:
     """The Database class will evaluate the top 75 players from the 75th
@@ -110,25 +111,35 @@ class Database:
                                   f" accolades and {name2.title()} has "
                                   f"{name2_accolades} total accolades,"
                                   f" so both players are equal!")  
-    def panda_method(self, path):
-        """summary
+    def panda_method(self, path):#Yaseen
+        """This method is used to show the user if they want to, who has the most MVP in the top 75 players list
 
         Args:
-            path (type): description
+            path (str): a path to the file being used that has TOP 75 NBA players stats
+            
+        Side effect: 
+            prints the data frame of the total amount oF MVPs the 75 players has
+            
         """
         df = pd.read_csv(path) 
         by_mvp = df[["Name","MVP"]].sort_values(by="MVP",ascending=False)
         print(by_mvp)
-    def graph_method(self, path):
-        """summary
+
+    def graph_method(self, path):#Yaseen
+        """This method is used to display a graph that shows the amount of MVPs that the top 75 players have 
 
         Args:
-            path (type): description
+            path (string): a path to the file being used that has TOP 75 NBA players stats
+            
+        Side effect:
+            displays a graph of the data frame of the total amount of MVPs the 75 players has
+            
         """
         df = pd.read_csv(path)
         dfg = df.groupby("MVP")["Name"].count()
-        plotter = dfg.plot.bar(x="MVP",y="Name")
-        print(plotter)          
+        dfg.plot.bar(x="MVP",y="Name")
+        plt.show()
+                 
 def main():
     """The main function will go through the entire program asking questions
     to the user about what and what they do and don't want to run.
