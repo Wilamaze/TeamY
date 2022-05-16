@@ -1,3 +1,4 @@
+from jinja2 import pass_environment
 import pandas as pd
 import matplotlib.pyplot as plt
 import re
@@ -61,9 +62,10 @@ class Database:
                                 f", Scoring Title: {self.nbaplayers[name][4]}")
         
     def compare(self, name1, name2): #Orlando Aguilar (Conditional Expressions)
-        """The compare method is a method that will be used in order for the user
-        of our program to compare two players and their different statistics being
-        able to determine who is better between the two NBA players.
+        """The compare method is a method that will be used in order for the 
+        user of our program to compare two players and their different 
+        statistics being able to determine who is better between the two 
+        NBA players.
 
         Args:
             name1 (str): The name of the first NBA player the user wants to
@@ -101,7 +103,7 @@ class Database:
             #Many f-strings here due to using "\" in one f-string will cause
             #much white space within the f-string statements.
         print(f"{name1.title()} has {name1_accolades} total accolades and "
-            f"{name2.title()} has {name2_accolades} total accolades, so"
+            f"{name2.title()} has {name2_accolades} total accolades, so "
             f"{name1.title()} is the better player.") \
             if name1_accolades > name2_accolades else \
                 print(f"{name2.title()} has {name2_accolades} total "
@@ -113,14 +115,17 @@ class Database:
                                   f" accolades and {name2.title()} has "
                                   f"{name2_accolades} total accolades,"
                                   f" so both players are equal!")  
+                            
     def panda_method(self, path):#Yaseen
-        """This method is used to show the user if they want to, who has the most MVP in the top 75 players list
+        """This method is used to show the user if they want to, who has the 
+        most MVP in the top 75 players list
 
         Args:
-            path (str): a path to the file being used that has TOP 75 NBA players stats
+            path (str): a path to the file being used that has TOP 75 NBA 
+            players stats
             
         Side effect: 
-            prints the data frame of the total amount oF MVPs the 75 players has
+            Prints the data frame of the total amount oF MVPs the 75 players has
             
         """
         df = pd.read_csv(path) 
@@ -128,13 +133,16 @@ class Database:
         print(by_mvp)
 
     def graph_method(self, path):#Yaseen
-        """This method is used to display a graph that shows the amount of MVPs that the top 75 players have 
+        """This method is used to display a graph that shows the amount of MVPs 
+        that the top 75 players have 
 
         Args:
-            path (string): a path to the file being used that has TOP 75 NBA players stats
+            path (string): a path to the file being used that has TOP 75 NBA 
+            players stats
             
         Side effect:
-            displays a graph of the data frame of the total amount of MVPs the 75 players has
+            displays a graph of the data frame of the total amount of MVPs the 
+            75 players has
             
         """
         df = pd.read_csv(path)
@@ -174,24 +182,38 @@ def main():
         playerstats_method = db.playerstats(name=input("Player not found! " \
         "What NBA Player would you like to know the accolades of? "))
     question1 = input("Would you like to compare NBA Players? ")
+    
     if question1 == "no":
         pass
     else:
-        compare_method = db.compare(name1=input("NBA Player 1? "),name2=input("NBA Player 2? "))
-        print(compare_method)
-    question2 = input("Would you like to see a list of the amount of mvps each player has earned? ")
+        try:
+            compare_method = db.compare(name1=input("NBA Player 1? "),\
+                name2=input("NBA Player 2? "))
+            print(compare_method)
+        except:
+            print("One or both players are not in the NBA 75th" + 
+                  " Anniversary team! Try again!")
+            compare_method = db.compare(name1=input("NBA Player 1? "),\
+                name2=input("NBA Player 2? "))
+            
+    question2 = input("Would you like to see a list of the amount of mvps" + \
+        " each player has earned? ")
     if question2 == "no":
         pass
-    else: 
+    else:
         panda_method = db.panda_method("nba_top_75.csv")
         print(panda_method)
-    question3 = input("Do you want to see a graph of the most MVPs based on the database? ")
+        
+    question3 = input("Do you want to see a graph of the most MVPs based" + 
+                      " on the database? ")
     if question3 == "no":
         pass
     else: 
         graph_method = db.graph_method("nba_top_75.csv")
         print(graph_method)
-    question4 = input("Would you like to see how many people within the list have 0 awards? ")
+        
+    question4 = input("Would you like to see how many people within the " +
+                      "list have 0 awards? ")
     if question4 == "no":
         pass
     else:
